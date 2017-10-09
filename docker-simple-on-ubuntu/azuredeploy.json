@@ -235,7 +235,7 @@
           "fileUris": [
             "[concat(parameters('_artifactsLocation'), '/scripts/hello.sh')]"
           ],
-          "commandToExecute": "[concat(parameters('commandToExecute'), variables('azureStorageDockerKey'), variables('azureStorageDockerAccount')]"
+          "commandToExecute": "[concat(parameters('commandToExecute'), variables('azureStorageDockerKey'), variables('azureStorageDockerAccount'))]"
         }
       }
     }
