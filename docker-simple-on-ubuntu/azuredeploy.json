@@ -28,9 +28,23 @@
     },
     "vmSize": {
       "type": "string",
-      "defaultValue": "Standard_F1",
+      "defaultValue": "Standard_DS1",
       "metadata": {
         "description": "VM size for the Docker host."
+      }
+    },
+    "azureStorageDockerAccount": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Stoarge Account"
+      }
+    },
+    "azureStorageDockerKey": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Azure Storage Key"
       }
     },
     "ubuntuOSVersion": {
@@ -56,6 +70,7 @@
     "subnetName": "Subnet",
     "subnetPrefix": "10.0.0.0/24",
     "storageAccountType": "Standard_LRS",
+    "storageDockerAccountType": "Standard_LRS",
     "publicIPAddressName": "myPublicIPD",
     "publicIPAddressType": "Dynamic",
     "vmStorageAccountContainerName": "vhds",
@@ -75,6 +90,16 @@
         "name": "[variables('storageAccountType')]"
       }
     },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[parameters('azureStorageDockerAccount')]",
+      "apiVersion": "2016-01-01",
+      "location": "[resourceGroup().location]",
+      "kind": "Storage",
+      "sku": {
+        "name": "[variables('storageDockerAccountType')]"
+      }
+    },    
     {
       "apiVersion": "2017-04-01",
       "type": "Microsoft.Network/publicIPAddresses",
@@ -208,9 +233,9 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "[concat(parameters('_artifactsLocation'), '/scripts/dockerAzureVolume.sh')]"
+            "[concat(parameters('_artifactsLocation'), '/scripts/hello.sh')]"
           ],
-          "commandToExecute": "[parameters('commandToExecute')]"
+          "commandToExecute": "[concat(parameters('commandToExecute'), variables('azureStorageDockerKey'), variables('azureStorageDockerAccount')]"
         }
       }
     }

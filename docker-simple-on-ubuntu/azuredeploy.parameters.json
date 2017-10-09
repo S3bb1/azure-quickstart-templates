@@ -13,6 +13,12 @@
     },
     "dnsNameForPublicIP": {
       "value": "GEN-UNIQUE"
-    }
+    },    
+    "azureStorageDockerAccount": {
+      "value": "GEN-UNIQUE"
+    },
+    "azureStorageDockerKey": {
+      "value": "GEN-PASSWORD"
+    },
   }
 }
